@@ -1,0 +1,109 @@
+# **Medical Imaging Diagnosis Agent**
+
+## 1️⃣ Overview
+
+The UI must allow users to:
+
+- Upload medical images or videos
+- Trigger AI analysis
+- View structured diagnostic results
+- Read patient-friendly explanations
+- Understand model confidence and image quality
+
+---
+
+# 2️⃣ Core Screens
+
+## A. Landing / Home Screen
+
+### Purpose:
+
+Introduce the AI Medical Imaging Diagnosis Agent.
+
+### UI Elements:
+
+- Page Title:
+    - “Medical Imaging Diagnosis Agent”
+- Short Description:
+    - AI-assisted analysis powered by Gemini 2.0 Flash
+- CTA Button:
+    - “Upload Scan for Analysis”
+- Optional:
+    - Supported formats list (JPG, PNG, MP4, DICOM if applicable)
+
+---
+
+## B. Image Upload Screen
+
+### Functional Requirements:
+
+1. Upload Area
+    - Drag-and-drop support
+    - File picker button
+    - Accept images and videos
+2. Validation
+    - Show file type errors
+    - Show file size limit errors
+    - Disable Analyze button until file is uploaded
+3. Preview
+    - Display uploaded image
+    - Play video preview (if video)
+4. Action Button
+    - “Analyze Image”
+5. Loading State
+    - Spinner or progress indicator
+    - “Analyzing scan…”
+
+---
+
+## C. Analysis Results Screen
+
+This is the most important screen.
+
+### Layout Suggestion:
+
+Two-column layout
+
+Left:
+
+- Image preview
+
+Right:
+
+- Structured diagnostic analysis
+
+
+this is the shape of the result from the endpoint for the AI Imaging diagnosis:
+
+const result: {
+    observations: string[];
+    detailedDescription: string;
+    abnormalAreas: {
+        location: string;
+        description: string;
+        extent: string;
+        abnormalityReason: string;
+    }[];
+    rankedDiagnoses: {
+        condition: string;
+        likelihood: "High" | "Moderate" | "Low";
+        rationale: string;
+        supportingFindings: string[];
+        contradictingFindings: string[] | null;
+        references: string[];
+    }[];
+    differentialDiagnoses: {
+        condition: string;
+        distinguishingTest: string;
+        reasoning: string;
+    }[];
+    severity: {
+        level: "Moderate" | "Normal" | "Mild" | "Severe" | "Critical";
+        justification: string;
+        urgent: boolean;
+    };
+    patientExplanation: string;
+    firstPrinciplesBreakdown: {
+        ...;
+    };
+}
