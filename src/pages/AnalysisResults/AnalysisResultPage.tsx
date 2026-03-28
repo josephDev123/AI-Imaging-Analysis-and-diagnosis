@@ -1,4 +1,4 @@
-import { LoaderCircle } from "lucide-react";
+// import { LoaderCircle } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import { DiagnosisSummary } from "./components/DiagnosisSummary";
@@ -8,7 +8,9 @@ import type { UploadNavigationState } from "../upload/types/upload.types";
 function PreviewPanel({ state }: { state: UploadNavigationState }) {
   return (
     <section className="rounded-2xl border border-slate-300 bg-white p-4 shadow-sm">
-      <h2 className="mb-3 text-base font-semibold text-slate-900">Scan Preview</h2>
+      <h2 className="mb-3 text-base font-semibold text-slate-900">
+        Scan Preview
+      </h2>
       {state.mediaKind === "image" ? (
         <img
           src={state.previewUrl}
@@ -33,12 +35,14 @@ function PreviewPanel({ state }: { state: UploadNavigationState }) {
 export function AnalysisResultPage() {
   const location = useLocation();
   const navigationState = location.state as UploadNavigationState | undefined;
-  const { result, isLoading, error } = useDiagnosisResult(Boolean(navigationState));
+  const { result } = useDiagnosisResult(Boolean(navigationState));
 
   if (!navigationState) {
     return (
       <section className="rounded-2xl border border-slate-300 bg-white p-8 text-center shadow-sm">
-        <h1 className="text-2xl font-semibold text-slate-900">No scan selected</h1>
+        <h1 className="text-2xl font-semibold text-slate-900">
+          No scan selected
+        </h1>
         <p className="mt-2 text-sm text-slate-600">
           Upload an image or video first to generate AI analysis results.
         </p>
@@ -63,21 +67,21 @@ export function AnalysisResultPage() {
       <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <PreviewPanel state={navigationState} />
 
-        {isLoading ? (
-          <section className="flex min-h-[260px] items-center justify-center rounded-2xl border border-slate-300 bg-white p-6">
-            <div className="flex items-center gap-2 text-sm text-slate-700">
-              <LoaderCircle size={18} className="animate-spin" />
-              Loading diagnostic analysis...
-            </div>
-          </section>
-        ) : error ? (
-          <section className="rounded-2xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-700">
-            {error}
-          </section>
-        ) : result ? (
-          <DiagnosisSummary result={result} />
-        ) : null}
+        {result ? <DiagnosisSummary result={result} /> : null}
       </div>
     </section>
   );
 }
+
+// isLoading ? (
+//           <section className="flex min-h-[260px] items-center justify-center rounded-2xl border border-slate-300 bg-white p-6">
+//             <div className="flex items-center gap-2 text-sm text-slate-700">
+//               <LoaderCircle size={18} className="animate-spin" />
+//               Loading diagnostic analysis...
+//             </div>
+//           </section>
+//         ) : error ? (
+//           <section className="rounded-2xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-700">
+//             {error}
+//           </section>
+//         ) :

@@ -2,7 +2,7 @@ import { ArrowRight, Microscope } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 
-const supportedFormats = ["JPG", "PNG", "MP4", "DICOM (if enabled)"];
+const supportedFormats = ["JPG", "PNG"];
 
 export function HomeHero() {
   return (

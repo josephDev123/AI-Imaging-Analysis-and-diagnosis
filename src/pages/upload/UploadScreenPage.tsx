@@ -6,9 +6,12 @@ import { UploadDropzone } from "./components/UploadDropzone";
 import { UploadPreview } from "./components/UploadPreview";
 import { useUploadScan } from "./hooks/useUploadScan";
 import type { UploadNavigationState } from "./types/upload.types";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setDiagnosis } from "@/lib/redux/slices/ImagingDiagnosisSlice";
 
 export function UploadScreenPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isDragging, setIsDragging] = useState(false);
   const {
     selectedFile,
@@ -26,13 +29,14 @@ export function UploadScreenPage() {
 
   async function handleAnalyze() {
     if (!selectedFile || !previewUrl || !mediaKind) return;
-    await analyze();
+    const result = await analyze();
     const navigationState: UploadNavigationState = {
       fileName: selectedFile.name,
       fileType: selectedFile.type,
       mediaKind,
       previewUrl,
     };
+    dispatch(setDiagnosis(result.data));
     navigate("/results", { state: navigationState });
   }
 
@@ -46,8 +50,8 @@ export function UploadScreenPage() {
           Upload a Scan for AI Analysis
         </h1>
         <p className="max-w-3xl text-sm text-slate-600 sm:text-base">
-          Upload medical images or videos, validate quality, then run AI
-          analysis for structured diagnostic insights.
+          Upload medical images, validate quality, then run AI analysis for
+          structured diagnostic insights.
         </p>
       </header>
 
