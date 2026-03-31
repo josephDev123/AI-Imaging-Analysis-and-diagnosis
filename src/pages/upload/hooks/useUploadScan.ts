@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ImageAnalyzeFn } from "../api/ImageAnalyzeFn";
 import { toast } from "sonner";
 
-const ACCEPTED_MIME_PREFIXES = ["image/", "video/"] as const;
+const ACCEPTED_MIME_PREFIXES = ["image/png", "image/jpeg"] as const;
 const FILE_SIZE_LIMIT_BYTES = 40 * 1024 * 1024;
 // const ANALYZE_DELAY_MS = 1200;
 
@@ -15,6 +15,7 @@ function detectMediaKind(file: File): SupportedMediaKind | null {
 }
 
 function validateFile(file: File): string | null {
+  console.log("Validating file:", file);
   const hasSupportedMime = ACCEPTED_MIME_PREFIXES.some((prefix) =>
     file.type.startsWith(prefix),
   );

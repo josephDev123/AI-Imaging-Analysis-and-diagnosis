@@ -45,7 +45,7 @@ export function UploadDropzone({
         ref={inputRef}
         type="file"
         className="hidden"
-        accept="image/*,video/*"
+        accept="image/png, image/jpeg,"
         onChange={(event) => onFileSelected(event.target.files?.[0] ?? null)}
       />
       <button
